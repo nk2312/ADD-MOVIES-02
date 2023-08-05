@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies </title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div class="container" >
+        <div id="back-drop" class="back-drop"></div>
+        <div id="card" class="modal ">
+            <div class="modal-card ">
+                <label for="movie-title">Movie Title</label>
+                <input type="text" id="movie-title"/>
+                <label for="movie-title">Movie Image</label>
+                <input type="text" id="movie-img"/>
+                <label for="movie-title">Rating</label>
+                <input type="number" id="movie-rating"/>
+                <div class="div-btn">
+                    <button id="add">ADD</button>
+                <button id="cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <header>
+            <h3>Favourite Movies</h3>
+            <button>Add Movies</button>
+        </header>
+        <div class="heading">Movie List</div>
+        <main class="movie-list" id="list">
+            <ul>
+
+            </ul>
+        </main>
+        <div class="confirmation-box " id="box">
+            <div class="confirm">Confirmation Box</div>
+            <p class="para">Do you really want to delete this ?</p>
+            <div class="para">
+                <button id="no">
+                    no
+                </button>
+                <button id="yes" style="color: red;">
+                    yes
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
