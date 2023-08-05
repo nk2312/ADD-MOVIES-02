@@ -1,90 +1,75 @@
-const btn =document.querySelector("header").firstElementChild.nextElementSibling;
-const modalCard = document.getElementById("card");
-const backDrop = document.getElementById("back-drop");
-const btnAdd = document.getElementById("add");
-const btnCancel = document.getElementById("cancel");
-const userInputs = document.querySelectorAll("input");
-const ul = document.querySelector("ul");
-const box = document.getElementById("box");
-let movies = [];
+const addBtn = document.getElementById("add-btn");
+const search=document.getElementById("search");
+const list=document.getElementById("list");
+const movies = [];
 
-const backDropHandler = () => {
-  backDrop.classList.toggle("visible");
-};
+const renderMoviesHandler=(filter='')=>{
+  const ulElement=list.querySelector('ul');
+  ulElement.innerHTML=''
+
+  if(movies.length===0){
+    return
+  }
+  else{
+    list.classList.add("display");
+  }
+
+
+
+  const filteredMovies=!filter? movies: movies.filter((input)=>{return input.info.title.includes(filter)})
+  filteredMovies.forEach((movie)=>{
+    
+    const {info}=movie;
+    let {getFormattedInput}=movie;
+    getFormattedInput=getFormattedInput.call(movie);
+    let text=movie.getFormattedInput() + ' ';
+    // const {title:movieTitle}=info; //object destructuring ,pulling title and assigning to movieTitle
+    for(const keys in info){
+       if(keys!=='title'){
+        text += `${keys} : ${info[keys]}`;
+       }
+    }
+    const newElement = document.createElement('li');
+    newElement.innerHTML=text;  
+    newElement.classList.add('des');
+    ulElement.appendChild(newElement);
+  })
+
+ 
+
+
+}
 
 const addMovieHandler = () => {
-  modalCard.classList.toggle("visible");
-  backDropHandler();
-};
-const noHandler = () => {
-  backDropHandler();
-  box.classList.remove("visible");
 
-};
+const movieTitle = document.getElementById("movie-title").value;
+const extraLabel = document.getElementById("extra-label").value;
+const extraValue = document.getElementById("extra-value").value;
 
-const confirmationHandler = (id) => {
- 
-  box.classList.add("visible");
-  const no = box.lastElementChild.firstElementChild;
-  const yes = box.lastElementChild.lastElementChild;
-  yes.addEventListener("click", deleteMovie.bind(null,id));
-  no.addEventListener("click", noHandler);
-};
+if(movieTitle.trim()==''|| extraLabel.trim()=='' || extraValue.trim()==''){
+  alert("Empty Inputs ! Please enter again ")
+  return
+}
 
-const deleteMovie = (id) => {
-  let index = 0;
-  for (const m of movies) {
-    if (m.id == id) {
-      break;
+  const moviesObject = {
+    info: {
+      title: movieTitle,
+      [extraLabel]: extraValue,
+    },
+    id: Math.random() * 10,
+    getFormattedInput(){
+      return this.info.title.toUpperCase();
     }
-    index++;
-  }
-  const newLiElement = document.querySelectorAll("li")[index];
-  ul.removeChild(newLiElement);
-  noHandler();
-
+  };
+  movies.push(moviesObject);
+  renderMoviesHandler();
+  
 };
 
-const deleteHandler = (id) => {
-  backDropHandler();
-  confirmationHandler(id);
-};
+const searchHaandler=()=>{
+  const searchInput=document.getElementById("filter-title").value;
+  renderMoviesHandler(searchInput);
+}
 
-const renderMoviesHandler = (id, title, img, rating) => {
-  const newLiElement = document.createElement("li");
-  newLiElement.className = "movie-element";
-  newLiElement.innerHTML = `
-    <div class='movie-div'>
-        <div class='img'>
-            <img src="${img}" alt="img"/>
-        </div>
-        <div class='des'>
-            <p>${title}</p>
-            <p class="rating">${rating}/5</p>
-        </div>
-    </div>`;
-  ul.append(newLiElement);
-  newLiElement.addEventListener("click", deleteHandler.bind(null, id));
-};
-
-const addMovies = () => {
-  let title = userInputs[0].value;
-  let img = userInputs[1].value;
-  let rating = userInputs[2].value;
-  if (title.trim() === "" || img.trim() === "" || rating > 5 || rating < 1) {
-    alert("Invalid Inputs ! please enter again  ");
-    return;
-  }
-  let id = Math.random() * 10;
-  movies.push({ id, title, img, rating });
-  addMovieHandler();
-  renderMoviesHandler(id, title, img, rating);
-  for (const i of userInputs) {
-    i.value = "";
-  }
-};
-
-btn.addEventListener("click", addMovieHandler);
-backDrop.addEventListener("click", addMovieHandler);
-btnAdd.addEventListener("click", addMovies);
-btnCancel.addEventListener("click", addMovieHandler);
+addBtn.addEventListener("click", addMovieHandler);
+search.addEventListener('click', searchHaandler)

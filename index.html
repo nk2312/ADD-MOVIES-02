@@ -1,51 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies </title>
-    <link rel="stylesheet" href="style.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Objects Demo</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="app.js" defer></script>
-</head>
-<body>
-    <div class="container" >
-        <div id="back-drop" class="back-drop"></div>
-        <div id="card" class="modal ">
-            <div class="modal-card ">
-                <label for="movie-title">Movie Title</label>
-                <input type="text" id="movie-title"/>
-                <label for="movie-title">Movie Image</label>
-                <input type="text" id="movie-img"/>
-                <label for="movie-title">Rating</label>
-                <input type="number" id="movie-rating"/>
-                <div class="div-btn">
-                    <button id="add">ADD</button>
-                <button id="cancel">Cancel</button>
-                </div>
+  </head>
+  <body>
+    <div class="main">
+        <div class="movie modal flex">
+            <label for="movie-title">Favourite Movie</label>
+            <input type="text" id="movie-title" />
+            <div class="flex-dir">
+              <div>
+                <label for="extra-label">Extra Label</label>
+                <input type="text" id="extra-label" />
+              </div>
+              <div>
+                <label for="extra-value">Extra Value</label>
+                <input type="number" id="extra-value" />
+              </div>
             </div>
-        </div>
-        <header>
-            <h3>Favourite Movies</h3>
-            <button>Add Movies</button>
-        </header>
-        <div class="heading">Movie List</div>
-        <main class="movie-list" id="list">
-            <ul>
-
-            </ul>
-        </main>
-        <div class="confirmation-box " id="box">
-            <div class="confirm">Confirmation Box</div>
-            <p class="para">Do you really want to delete this ?</p>
-            <div class="para">
-                <button id="no">
-                    no
-                </button>
-                <button id="yes" style="color: red;">
-                    yes
-                </button>
-            </div>
-        </div>
+            <button id="add-btn">Add Movie</button>
+          </div>
+          <div class="filter modal flex">
+            <label for="filter-title">Filter By Title</label>
+            <input id="filter-title" />
+            <button id="search">Search</button>
+          </div>
+          <div class="list modal" id="list">
+            <ul></ul>
+          </div>
     </div>
-</body>
+  </body>
 </html>
